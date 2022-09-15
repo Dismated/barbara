@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import urlReducer from "./reducers/urlReducer";
 import mainProductReducer from "./reducers/mainProductReducer";
 import productReducer from "./reducers/productReducer";
 import promptReducer from "./reducers/promptReducer";
@@ -10,6 +11,7 @@ const store = configureStore({
     prompt: promptReducer,
     suggestion: suggestionReducer,
     mainProduct: mainProductReducer,
+    url: urlReducer,
   },
 });
 

@@ -1,12 +1,18 @@
 import DropdownBox from "./DropdownBox";
-import { ClickAwayListener, IconButton, InputBase } from "@mui/material";
+import {
+  ClickAwayListener,
+  IconButton,
+  InputBase,
+  Typography,
+} from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { setPrompt } from "../reducers/promptReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { setMainProduct } from "../reducers/mainProductReducer";
 import useFetch from "../hooks/useFetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { setUrl } from "../reducers/urlReducer";
+import { setSuggestion } from "../reducers/suggestionReducer";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -29,22 +35,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchBox = () => {
-  const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const dispatch = useDispatch();
   const prompt = useSelector((state) => state.prompt);
+
+  const dispatch = useDispatch();
+
+  const url = prompt
+    ? `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/paieska?q=${prompt}`
+    : null;
+  const { data, isLoading, error } = useFetch(url);
+
+  useEffect(() => {
+    dispatch(setSuggestion(data));
+  });
 
   const handleSearchChange = (event) => {
     dispatch(setPrompt(event.target.value));
   };
-
-  useFetch(
-    `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/paieska?q=${prompt}`,
-    setMainProduct,
-    clicked,
-    setClicked
-  );
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
@@ -59,7 +67,11 @@ const SearchBox = () => {
         <Search
           onSubmit={(event) => {
             event.preventDefault();
-            setClicked(true);
+            dispatch(
+              setUrl(
+                `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/paieska?q=${prompt}`
+              )
+            );
           }}
         >
           <StyledInputBase
@@ -72,7 +84,8 @@ const SearchBox = () => {
             <SearchIcon />
           </IconButton>
         </Search>
-        {open ? <DropdownBox /> : null}
+        {error && <Typography>Something went wrong</Typography>}
+        {open && <DropdownBox />}
       </div>
     </ClickAwayListener>
   );

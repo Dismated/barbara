@@ -22,7 +22,7 @@ const switchNumbers = (num1, num2) => {
   return num2;
 };
 
-const UserList = () => {
+const UserProductList = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
 
@@ -102,4 +102,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default UserProductList;

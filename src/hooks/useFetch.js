@@ -1,31 +1,33 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 
-const useFetch = (url, func, execute = true, reset = false) => {
-  const dispatch = useDispatch();
+const useFetch = (url) => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setHasError(false);
       try {
         const response = await fetch(url);
         const stringified = await response.text();
-        if (stringified.length > 1) {
-          const regex = /var products =.*/;
-          const productString = stringified
-            .match(regex)[0]
-            .split("=")[1]
-            .replace(";", "");
-          const products = await JSON.parse(productString);
-          dispatch(func(products));
-          if (reset) reset(false);
-        }
+        const regex = /var products =.*/;
+        const productString = stringified
+          .match(regex)[0]
+          .split("=")[1]
+          .replace(";", "");
+        const products = await JSON.parse(productString);
+
+        setData(products);
       } catch (error) {
-        console.log(error);
+        setHasError(true);
       }
+      setIsLoading(false);
     };
-    if (execute) {
-      fetchProducts();
-    }
-  }, [dispatch, url, func, execute, reset]);
+    fetchData();
+  }, [url]);
+  return { data, isLoading, hasError };
 };
 
 export default useFetch;

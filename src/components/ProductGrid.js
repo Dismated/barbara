@@ -8,7 +8,7 @@ import {
   CardContent,
   Typography,
   CardActions,
-  IconButton,
+  Button,
 } from "@mui/material";
 
 const ProductGrid = () => {
@@ -36,9 +36,9 @@ const ProductGrid = () => {
               <Typography>{e.title}</Typography>
               <Typography>{e.price}€</Typography>
               <CardActions>
-                <IconButton onClick={(event) => addToBasket(event, e)}>
+                <Button onClick={(event) => addToBasket(event, e)}>
                   Add To Cart
-                </IconButton>
+                </Button>
               </CardActions>
             </CardContent>
           </Card>
