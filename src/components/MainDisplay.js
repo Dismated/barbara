@@ -1,5 +1,5 @@
 import ProductGrid from "./ProductGrid";
-import UserProductList from "./UserProductList";
+import UserWindow from "./UserWindow";
 import { Grid, Typography } from "@mui/material";
 import useFetch from "../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,7 @@ const MainDisplay = () => {
         {isLoading ? <Typography>Loading...</Typography> : <ProductGrid />}
       </Grid>
       <Grid item xs={4}>
-        <UserProductList />
+        <UserWindow />
       </Grid>
     </Grid>
   );

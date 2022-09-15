@@ -4,6 +4,7 @@ import mainProductReducer from "./reducers/mainProductReducer";
 import productReducer from "./reducers/productReducer";
 import promptReducer from "./reducers/promptReducer";
 import suggestionReducer from "./reducers/suggestionReducer";
+import folderReducer from "./reducers/folderReducer";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     suggestion: suggestionReducer,
     mainProduct: mainProductReducer,
     url: urlReducer,
+    folder: folderReducer,
   },
 });
 

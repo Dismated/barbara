@@ -1,9 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { changedQuantity } from "../reducers/productReducer";
+import { changedQuantity, removeProduct } from "../reducers/productReducer";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { initializeProduct } from "../reducers/productReducer";
 import {
-  Paper,
-  Typography,
   List,
   ListItem,
   ListItemText,
@@ -14,24 +13,17 @@ import {
   IconButton,
 } from "@mui/material";
 
-const sum = (num1, num2) => {
-  return num1 + num2;
-};
-
-const switchNumbers = (num1, num2) => {
-  return num2;
-};
-
-const UserProductList = () => {
+const ProductList = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
-
   const findQuantity = (id) => {
     const foundProduct = product.find((product) => {
       return product.id === id;
     });
     return foundProduct.quantity;
   };
+
+  dispatch(initializeProduct());
 
   const basketList = (products) => {
     if (products) {
@@ -44,9 +36,7 @@ const UserProductList = () => {
               <ButtonGroup variant="contained" color="primary">
                 <Button
                   onClick={() => {
-                    dispatch(
-                      changedQuantity({ product: e, num: -1, func: sum })
-                    );
+                    dispatch(changedQuantity({ product: e, num: -1 }));
                   }}
                 >
                   -
@@ -63,27 +53,20 @@ const UserProductList = () => {
                     },
                   }}
                   value={findQuantity(e.id)}
-                  onChange={(event) =>
-                    dispatch(
-                      changedQuantity({
-                        product: e,
-                        num: event,
-                        func: switchNumbers,
-                      })
-                    )
-                  }
                 ></TextField>
                 <Button
                   onClick={() => {
-                    dispatch(
-                      changedQuantity({ product: e, num: 1, func: sum })
-                    );
+                    dispatch(changedQuantity({ product: e, num: 1 }));
                   }}
                 >
                   +
                 </Button>
               </ButtonGroup>
-              <IconButton>
+              <IconButton
+                onClick={() => {
+                  dispatch(removeProduct(e.id));
+                }}
+              >
                 <DeleteOutlinedIcon />
               </IconButton>
             </ListItem>
@@ -93,13 +76,7 @@ const UserProductList = () => {
       });
     }
   };
-  return (
-    <Paper>
-      <Typography variant="h2">Shopping List</Typography>
-
-      <List>{basketList(product)}</List>
-    </Paper>
-  );
+  return <List>{basketList(product)}</List>;
 };
 
-export default UserProductList;
+export default ProductList;

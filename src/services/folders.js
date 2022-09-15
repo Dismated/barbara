@@ -1,4 +1,4 @@
-const productUrl = "http://localhost:3001/api/products";
+const productUrl = "http://localhost:3001/api/folders";
 
 const getAll = async () => {
   const response = await fetch(productUrl);

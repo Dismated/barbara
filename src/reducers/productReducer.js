@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import noteService from "../services/notes";
 
 const changeProduct = (product) => {
-  const updatedNumber = product.func(product.product.quantity, product.num);
+  const updatedNumber = product.product.quantity + product.num;
   const changedProduct = {
     ...product.product,
     quantity: updatedNumber,
@@ -20,7 +20,7 @@ const productSlice = createSlice({
     appendProduct(state, action) {
       state.push(action.payload);
     },
-    updateQuantity(state, action) {
+    updateProduct(state, action) {
       return state.map((e) =>
         e.id === action.payload.id ? action.payload : e
       );
@@ -28,7 +28,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { appendProduct, updateQuantity, setProduct } =
+export const { appendProduct, updateProduct, setProduct } =
   productSlice.actions;
 
 export const initializeProduct = () => {
@@ -50,7 +50,13 @@ export const changedQuantity = (product) => {
       product.product.id,
       changedProduct
     );
-    dispatch(updateQuantity(updatedProduct));
+    dispatch(updateProduct(updatedProduct));
+  };
+};
+export const removeProduct = (id) => {
+  return async (dispatch) => {
+    await noteService.remove(id);
+    dispatch(initializeProduct());
   };
 };
 
