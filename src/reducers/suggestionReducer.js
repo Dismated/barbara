@@ -5,7 +5,7 @@ const suggestionSlice = createSlice({
   initialState: [],
   reducers: {
     setSuggestion(state, action) {
-      return action.payload.slice(0, 7);
+      return action.payload;
     },
   },
 });

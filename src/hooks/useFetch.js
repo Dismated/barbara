@@ -11,15 +11,8 @@ const useFetch = (url) => {
       setHasError(false);
       try {
         const response = await fetch(url);
-        const stringified = await response.text();
-        const regex = /var products =.*/;
-        const productString = stringified
-          .match(regex)[0]
-          .split("=")[1]
-          .replace(";", "");
-        const products = await JSON.parse(productString);
-
-        setData(products);
+        const products = await response.json();
+        setData(products.products);
       } catch (error) {
         setHasError(true);
       }

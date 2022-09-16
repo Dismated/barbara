@@ -42,7 +42,7 @@ const SearchBox = () => {
   const dispatch = useDispatch();
 
   const url = prompt
-    ? `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/paieska?q=${prompt}`
+    ? `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=7&query=${prompt}`
     : null;
   const { data, isLoading, error } = useFetch(url);
 
@@ -69,7 +69,7 @@ const SearchBox = () => {
             event.preventDefault();
             dispatch(
               setUrl(
-                `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/paieska?q=${prompt}`
+                `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=52&query=${prompt}`
               )
             );
           }}

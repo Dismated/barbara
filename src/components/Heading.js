@@ -6,7 +6,7 @@ const Heading = () => {
   return (
     <AppBar
       color="primary"
-      style={{
+      sx={{
         position: "fixed",
         left: "50%",
         transform: "translate(-50%, 0)",
@@ -14,7 +14,7 @@ const Heading = () => {
       }}
     >
       <Toolbar>
-        <Logo style={{ width: 55, height: 55 }} />
+        <Logo style={{ width: 56, height: 56 }} />
         <SearchBox />
       </Toolbar>
     </AppBar>
