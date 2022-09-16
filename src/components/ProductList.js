@@ -69,7 +69,7 @@ const ProductList = () => {
               </ButtonGroup>
               <IconButton
                 onClick={() => {
-                  dispatch(removeProduct(e.id));
+                  dispatch(removeProduct(e._id, productWindow));
                 }}
               >
                 <DeleteOutlinedIcon />

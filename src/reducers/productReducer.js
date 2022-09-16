@@ -56,10 +56,10 @@ export const changedQuantity = (product) => {
     dispatch(updateProduct(updatedProduct));
   };
 };
-export const removeProduct = (id) => {
+export const removeProduct = (id, folderId) => {
   return async (dispatch) => {
     await noteService.remove(id);
-    dispatch(initializeProduct());
+    dispatch(initializeProduct(folderId));
   };
 };
 
