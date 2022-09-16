@@ -14,10 +14,11 @@ import {
 const ProductGrid = () => {
   const dispatch = useDispatch();
   const mainProduct = useSelector((state) => state.mainProduct);
+  const productWindow = useSelector((state) => state.productWindow);
 
   const addToBasket = async (event, product) => {
     event.preventDefault();
-    dispatch(createProduct(product));
+    dispatch(createProduct(product, productWindow));
   };
 
   const productGenerator = (products) => {

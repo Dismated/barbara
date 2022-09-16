@@ -11,11 +11,13 @@ import {
   TextField,
   Divider,
   IconButton,
+  Typography,
 } from "@mui/material";
 
 const ProductList = () => {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
+  const productWindow = useSelector((state) => state.productWindow);
   const findQuantity = (id) => {
     const foundProduct = product.find((product) => {
       return product.id === id;
@@ -23,7 +25,7 @@ const ProductList = () => {
     return foundProduct.quantity;
   };
 
-  dispatch(initializeProduct());
+  dispatch(initializeProduct(productWindow));
 
   const basketList = (products) => {
     if (products) {
@@ -76,7 +78,12 @@ const ProductList = () => {
       });
     }
   };
-  return <List>{basketList(product)}</List>;
+  return (
+    <>
+      <Typography variant="h2">Product List</Typography>
+      <List>{basketList(product)}</List>
+    </>
+  );
 };
 
 export default ProductList;

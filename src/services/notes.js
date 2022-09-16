@@ -6,6 +6,7 @@ const getAll = async () => {
 };
 
 const create = async (newObject) => {
+  console.log(newObject);
   const response = await fetch(productUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

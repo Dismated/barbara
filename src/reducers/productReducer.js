@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import noteService from "../services/notes";
+import folderService from "../services/folders";
 
 const changeProduct = (product) => {
   const updatedNumber = product.product.quantity + product.num;
@@ -31,15 +32,16 @@ const productSlice = createSlice({
 export const { appendProduct, updateProduct, setProduct } =
   productSlice.actions;
 
-export const initializeProduct = () => {
+export const initializeProduct = (id) => {
   return async (dispatch) => {
-    const products = await noteService.getAll();
-    dispatch(setProduct(products));
+    const folders = await folderService.getAll();
+    const foundFolder = await folders.find((e) => e.id === id);
+    dispatch(setProduct(foundFolder));
   };
 };
-export const createProduct = (content) => {
+export const createProduct = (content, folderId) => {
   return async (dispatch) => {
-    const newProduct = await noteService.create(content);
+    const newProduct = await noteService.create({ content, folderId });
     dispatch(appendProduct(newProduct));
   };
 };

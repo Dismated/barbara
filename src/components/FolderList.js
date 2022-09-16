@@ -3,17 +3,19 @@ import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import { initializeFolder, createFolder } from "../reducers/folderReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { setProductWindow } from "../reducers/productWindowReducer.js";
+
 import {
   Popover,
   Button,
-  IconButton,
+  Divider,
   List,
   ListItem,
   Typography,
   InputBase,
 } from "@mui/material";
 
-const FolderList = ({ setFolderWindow }) => {
+const FolderList = () => {
   const [folderName, setFolderName] = useState("");
 
   const dispatch = useDispatch();
@@ -23,17 +25,20 @@ const FolderList = ({ setFolderWindow }) => {
     dispatch(initializeFolder());
   }, [dispatch]);
 
+  const handleFolderClick = (id) => {
+    dispatch(setProductWindow(id));
+  };
+
   const constructFolders = (folders) => {
     if (folders) {
       return folders.map((e) => {
         return (
-          <div key={e.id}>
-            <ListItem>
-              <IconButton>
-                <FolderOutlinedIcon />
-              </IconButton>
-              <Typography>{e.username}</Typography>
+          <div key={e._id}>
+            <ListItem onClick={() => handleFolderClick(e._id)}>
+              <FolderOutlinedIcon />
+              <Typography>{e.name}</Typography>
             </ListItem>
+            <Divider />
           </div>
         );
       });
@@ -44,10 +49,11 @@ const FolderList = ({ setFolderWindow }) => {
     setFolderName(event.target.value);
   };
   const handleClick = () => {
-    dispatch(createFolder({ username: folderName }));
+    dispatch(createFolder({ name: folderName }));
   };
   return (
     <>
+      <Typography variant="h2">Folder List</Typography>
       <List>{constructFolders(folder)}</List>
       <PopupState variant="popover" popupId="demo-popup-popover">
         {(popupState) => (
@@ -68,7 +74,6 @@ const FolderList = ({ setFolderWindow }) => {
                 placeholder="Create Name"
                 onChange={handleSearchChange}
               ></InputBase>
-              <Button>Cancel</Button>
               <Button onClick={handleClick}>Create</Button>
             </Popover>
           </div>
@@ -90,7 +95,6 @@ const FolderList = ({ setFolderWindow }) => {
               }}
             >
               <InputBase placeholder="Enter Code"></InputBase>
-              <Button>Cancel</Button>
               <Button>Join</Button>
             </Popover>
           </div>
