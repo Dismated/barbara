@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { changedQuantity, removeProduct } from "../reducers/productReducer";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { initializeProduct } from "../reducers/productReducer";
 import { useEffect } from "react";
@@ -14,6 +16,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
+import { setProductWindow } from "../reducers/productWindowReducer";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -29,6 +32,10 @@ const ProductList = () => {
   useEffect(() => {
     dispatch(initializeProduct(productWindow));
   }, [dispatch, productWindow]);
+
+  const handleBackButton = () => {
+    dispatch(setProductWindow(false));
+  };
 
   const basketList = (products) => {
     if (products) {
@@ -83,7 +90,17 @@ const ProductList = () => {
   };
   return (
     <>
+      <IconButton onClick={handleBackButton}>
+        <ArrowBackOutlinedIcon />
+      </IconButton>
       <Typography variant="h2">Product List</Typography>
+      <IconButton
+        onClick={() => {
+          navigator.clipboard.writeText(productWindow);
+        }}
+      >
+        <ContentCopyOutlinedIcon />
+      </IconButton>
       <List>{basketList(product)}</List>
     </>
   );

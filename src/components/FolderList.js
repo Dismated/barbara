@@ -4,7 +4,7 @@ import { initializeFolder, createFolder } from "../reducers/folderReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { setProductWindow } from "../reducers/productWindowReducer.js";
-
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import {
   Popover,
   Button,
@@ -13,6 +13,7 @@ import {
   ListItem,
   Typography,
   InputBase,
+  IconButton,
 } from "@mui/material";
 
 const FolderList = () => {
@@ -34,9 +35,18 @@ const FolderList = () => {
       return folders.map((e) => {
         return (
           <div key={e._id}>
-            <ListItem onClick={() => handleFolderClick(e._id)}>
-              <FolderOutlinedIcon />
-              <Typography>{e.name}</Typography>
+            <ListItem>
+              <div onClick={() => handleFolderClick(e._id)}>
+                <FolderOutlinedIcon />
+                <Typography>{e.name}</Typography>
+              </div>
+              <IconButton
+                onClick={() => {
+                  navigator.clipboard.writeText(e._id);
+                }}
+              >
+                <ContentCopyOutlinedIcon />
+              </IconButton>
             </ListItem>
             <Divider />
           </div>
