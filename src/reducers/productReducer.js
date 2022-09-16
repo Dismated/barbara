@@ -16,14 +16,15 @@ const productSlice = createSlice({
   initialState: [],
   reducers: {
     setProduct(state, action) {
-      return action.payload;
+      return action.payload.products;
     },
     appendProduct(state, action) {
       state.push(action.payload);
     },
     updateProduct(state, action) {
+      console.log(action.payload);
       return state.map((e) =>
-        e.id === action.payload.id ? action.payload : e
+        e._id === action.payload._id ? action.payload : e
       );
     },
   },
@@ -35,7 +36,7 @@ export const { appendProduct, updateProduct, setProduct } =
 export const initializeProduct = (id) => {
   return async (dispatch) => {
     const folders = await folderService.getAll();
-    const foundFolder = await folders.find((e) => e.id === id);
+    const foundFolder = await folders.find((e) => e._id === id);
     dispatch(setProduct(foundFolder));
   };
 };
@@ -49,7 +50,7 @@ export const changedQuantity = (product) => {
   return async (dispatch) => {
     const changedProduct = changeProduct(product);
     const updatedProduct = await noteService.update(
-      product.product.id,
+      product.product._id,
       changedProduct
     );
     dispatch(updateProduct(updatedProduct));
