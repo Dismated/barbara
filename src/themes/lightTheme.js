@@ -10,7 +10,6 @@ const lightTheme = createTheme({
       default: grey[100],
     },
   },
-  typography: {},
 });
 
 export default lightTheme;

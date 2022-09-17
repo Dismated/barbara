@@ -21,32 +21,59 @@ const ProductGrid = () => {
     dispatch(createProduct(product, productWindow));
   };
 
-  const productGenerator = (products) => {
-    if (products) {
-      return products.map((e) => (
-        <Grid item xs={3} key={e.id}>
-          <Card style={{ height: "400px" }}>
-            <CardMedia
-              component="img"
-              height="200"
-              image={e.image}
-              alt={e.title}
-              sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
-            ></CardMedia>
-            <CardContent>
-              <Typography>{e.title}</Typography>
-              <Typography>{e.price}€</Typography>
+  const productGenerator = (products) =>
+    products?.map((e) => (
+      <Grid item xs={3} key={e.id}>
+        <Card
+          sx={{
+            height: "360px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="144px"
+            image={e.image}
+            alt={e.title}
+            sx={{ padding: "0 1em 0 1em", objectFit: "contain" }}
+          ></CardMedia>
+          <CardContent
+            sx={{
+              display: "flex",
+              flexGrow: 1,
+              justifyContent: "space-between",
+              flexDirection: "column",
+              "&:last-child": {
+                padding: 0,
+              },
+            }}
+          >
+            <Typography sx={{ textAlign: "center", px: "10px", pt: "10px" }}>
+              {e.title}
+            </Typography>
+            <div>
+              <Typography
+                sx={{ textAlign: "center" }}
+                color="primary"
+                variant="h5"
+              >
+                {e.price}€
+              </Typography>
               <CardActions>
-                <Button onClick={(event) => addToBasket(event, e)}>
+                <Button
+                  onClick={(event) => addToBasket(event, e)}
+                  variant="contained"
+                  sx={{ width: "100%" }}
+                >
                   Add To Cart
                 </Button>
               </CardActions>
-            </CardContent>
-          </Card>
-        </Grid>
-      ));
-    }
-  };
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+    ));
 
   return <>{productGenerator(mainProduct)}</>;
 };
