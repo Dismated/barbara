@@ -5,12 +5,13 @@ import { ReactComponent as Logo } from "../assets/barbara.svg";
 const Heading = () => {
   return (
     <AppBar
-      color="primary"
       sx={{
         position: "fixed",
         left: "50%",
         transform: "translate(-50%, 0)",
         top: 0,
+        color: "primary",
+        height: "64px",
       }}
     >
       <Toolbar>

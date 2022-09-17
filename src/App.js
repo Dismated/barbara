@@ -1,23 +1,12 @@
 import Heading from "./components/Heading";
 import MainDisplay from "./components/MainDisplay";
 import { CssBaseline, Box } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { red, grey } from "@mui/material/colors";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: red[600],
-    },
-    background: {
-      default: grey[100],
-    },
-  },
-});
+import { ThemeProvider } from "@mui/material/styles";
+import lightTheme from "./themes/lightTheme";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={lightTheme}>
       <CssBaseline />
       <Box sx={{ bgcolor: "background.default" }}>
         <Heading />

@@ -1,15 +1,24 @@
-import { useSelector } from "react-redux";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../reducers/productReducer";
 import {
   List,
   ListItem,
-  IconButton,
+  Button,
   ListItemText,
   Divider,
+  LinearProgress,
 } from "@mui/material/";
 
-const DropdownBox = (loading) => {
+const DropdownBox = ({ loading }) => {
+  const dispatch = useDispatch();
   const suggestion = useSelector((state) => state.suggestion);
+  const productWindow = useSelector((state) => state.productWindow);
+
+  const addToBasket = async (event, product) => {
+    event.preventDefault();
+    dispatch(createProduct(product, productWindow));
+  };
 
   const productList = () =>
     suggestion?.map((e) => (
@@ -19,11 +28,17 @@ const DropdownBox = (loading) => {
           <ListItemText
             primary={e.title}
             secondary={`${e.price}€`}
-            style={{ position: "relative" }}
+            sx={{ position: "relative", color: "text.primary" }}
           />
-          <IconButton>
+          <Button
+            onClick={(event) => {
+              addToBasket(event, e);
+            }}
+            color="primary"
+            variant="contained"
+          >
             <AddShoppingCartIcon />
-          </IconButton>
+          </Button>
         </ListItem>
         <Divider />
       </div>
@@ -31,7 +46,7 @@ const DropdownBox = (loading) => {
 
   return (
     <List sx={{ background: "white", padding: 0 }}>
-      { productList()}
+      {loading ? <LinearProgress color="primary" /> : productList()}
     </List>
   );
 };

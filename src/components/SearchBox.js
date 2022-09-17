@@ -13,6 +13,7 @@ import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { setUrl } from "../reducers/urlReducer";
 import { setSuggestion } from "../reducers/suggestionReducer";
+import useDebounce from "../hooks/useDebounce";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -38,11 +39,11 @@ const SearchBox = () => {
   const [open, setOpen] = useState(false);
 
   const prompt = useSelector((state) => state.prompt);
-
   const dispatch = useDispatch();
+  const debouncedSearchTerm = useDebounce(prompt, 500);
 
-  const url = prompt
-    ? `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=7&query=${prompt}`
+  const url = debouncedSearchTerm
+    ? `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=7&query=${debouncedSearchTerm}`
     : null;
   const { data, isLoading, error } = useFetch(url);
 
@@ -55,7 +56,7 @@ const SearchBox = () => {
       <div
         style={{
           position: "absolute",
-          top: 11,
+          top: 12,
           left: "50%",
           transform: "translate(-50%, 0)",
         }}
@@ -76,7 +77,7 @@ const SearchBox = () => {
             onChange={(event) => dispatch(setPrompt(event.target.value))}
             autoFocus={true}
           ></StyledInputBase>
-          <IconButton type="submit" style={{ color: "inherit" }}>
+          <IconButton type="submit" sx={{ color: "inherit" }}>
             <SearchIcon />
           </IconButton>
         </Search>
