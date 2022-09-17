@@ -5,11 +5,16 @@ const getAll = async () => {
   return await response.json();
 };
 
+const getById = async (id) => {
+  const response = await fetch(`${folderUrl}/${id}`);
+  return await response.json();
+};
+
 const create = async (newObject) => {
   const response = await fetch(folderUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newObject),
+    body: JSON.stringify({ name: newObject }),
   });
   return await response.json();
 };
@@ -29,5 +34,5 @@ const remove = async (id) => {
   return response.status;
 };
 
-const exportedObject = { getAll, create, update, remove };
+const exportedObject = { getAll, getById, create, update, remove };
 export default exportedObject;

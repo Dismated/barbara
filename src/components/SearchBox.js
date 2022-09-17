@@ -50,10 +50,6 @@ const SearchBox = () => {
     dispatch(setSuggestion(data));
   });
 
-  const handleSearchChange = (event) => {
-    dispatch(setPrompt(event.target.value));
-  };
-
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <div
@@ -77,7 +73,7 @@ const SearchBox = () => {
           <StyledInputBase
             placeholder="Search…"
             onClick={() => setOpen(true)}
-            onChange={handleSearchChange}
+            onChange={(event) => dispatch(setPrompt(event.target.value))}
             autoFocus={true}
           ></StyledInputBase>
           <IconButton type="submit" style={{ color: "inherit" }}>
@@ -85,7 +81,7 @@ const SearchBox = () => {
           </IconButton>
         </Search>
         {error && <Typography>Something went wrong</Typography>}
-        {open && <DropdownBox />}
+        {open && <DropdownBox loading={isLoading} />}
       </div>
     </ClickAwayListener>
   );

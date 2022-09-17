@@ -33,64 +33,52 @@ const ProductList = () => {
     dispatch(initializeProduct(productWindow));
   }, [dispatch, productWindow]);
 
-  const handleBackButton = () => {
-    dispatch(setProductWindow(false));
-  };
+  const basketList = (products) =>
+    products?.map((e) => (
+      <div key={e._id}>
+        <ListItem>
+          <img src={e.image} alt={e.title} style={{ height: "50px" }}></img>
+          <ListItemText primary={e.title} secondary={`${e.price}€`} />
+          <ButtonGroup variant="contained" color="primary">
+            <Button
+              onClick={() => {
+                dispatch(changedQuantity({ product: e, num: -1 }));
+              }}
+            >
+              -
+            </Button>
+            <TextField
+              variant="filled"
+              sx={textFieldStyles}
+              value={findQuantity(e._id)}
+            ></TextField>
+            <Button
+              onClick={() => {
+                dispatch(changedQuantity({ product: e, num: 1 }));
+              }}
+            >
+              +
+            </Button>
+          </ButtonGroup>
+          <IconButton
+            onClick={() => {
+              dispatch(removeProduct(e._id, productWindow));
+            }}
+          >
+            <DeleteOutlinedIcon />
+          </IconButton>
+        </ListItem>
+        <Divider />
+      </div>
+    ));
 
-  const basketList = (products) => {
-    if (products) {
-      return products.map((e) => {
-        return (
-          <div key={e._id}>
-            <ListItem>
-              <img src={e.image} alt={e.title} style={{ height: "50px" }}></img>
-              <ListItemText primary={e.title} secondary={`${e.price}€`} />
-              <ButtonGroup variant="contained" color="primary">
-                <Button
-                  onClick={() => {
-                    dispatch(changedQuantity({ product: e, num: -1 }));
-                  }}
-                >
-                  -
-                </Button>
-                <TextField
-                  variant="filled"
-                  color="primary"
-                  sx={{
-                    width: "40px",
-                    height: "30px",
-                    value: "1",
-                    "& .MuiFilledInput-input": {
-                      padding: "8px",
-                    },
-                  }}
-                  value={findQuantity(e._id)}
-                ></TextField>
-                <Button
-                  onClick={() => {
-                    dispatch(changedQuantity({ product: e, num: 1 }));
-                  }}
-                >
-                  +
-                </Button>
-              </ButtonGroup>
-              <IconButton
-                onClick={() => {
-                  dispatch(removeProduct(e._id, productWindow));
-                }}
-              >
-                <DeleteOutlinedIcon />
-              </IconButton>
-            </ListItem>
-            <Divider />
-          </div>
-        );
-      });
-    }
-  };
   return (
     <>
-      <IconButton onClick={handleBackButton}>
+      <IconButton
+        onClick={() => {
+          dispatch(setProductWindow(false));
+        }}
+      >
         <ArrowBackOutlinedIcon />
       </IconButton>
       <Typography variant="h2">Product List</Typography>
@@ -107,3 +95,13 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
+const textFieldStyles = {
+  width: "40px",
+  height: "30px",
+  value: "1",
+  "& .MuiFilledInput-input": {
+    padding: "8px",
+  },
+  color: "primary",
+};
