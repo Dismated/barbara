@@ -26,7 +26,7 @@ const ProductGrid = () => {
       <Grid item xs={3} key={e.id}>
         <Card
           sx={{
-            height: "360px",
+            height: "300px",
             display: "flex",
             flexDirection: "column",
           }}

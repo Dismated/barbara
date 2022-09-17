@@ -10,6 +10,9 @@ const lightTheme = createTheme({
       default: grey[100],
     },
   },
+  typography: {
+    fontSize: 12,
+  },
 });
 
 export default lightTheme;

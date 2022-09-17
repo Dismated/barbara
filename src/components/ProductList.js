@@ -9,12 +9,13 @@ import {
   List,
   ListItem,
   ListItemText,
-  ButtonGroup,
   Button,
-  TextField,
+  InputBase,
   Divider,
   IconButton,
   Typography,
+  Box,
+  ButtonGroup,
 } from "@mui/material";
 import { setProductWindow } from "../reducers/productWindowReducer";
 
@@ -29,6 +30,11 @@ const ProductList = () => {
     return foundProduct.quantity;
   };
 
+  const totalPrice = () =>
+    product?.reduce((acc, e) => {
+      return Number((e.quantity * e.price + acc).toFixed(2));
+    }, 0) || 0;
+
   useEffect(() => {
     dispatch(initializeProduct(productWindow));
   }, [dispatch, productWindow]);
@@ -36,26 +42,32 @@ const ProductList = () => {
   const basketList = (products) =>
     products?.map((e) => (
       <div key={e._id}>
-        <ListItem>
+        <ListItem sx={{ p: 0 }}>
           <img src={e.image} alt={e.title} style={{ height: "50px" }}></img>
           <ListItemText primary={e.title} secondary={`${e.price}€`} />
-          <ButtonGroup variant="contained" color="primary">
+          <ButtonGroup>
             <Button
               onClick={() => {
                 dispatch(changedQuantity({ product: e, num: -1 }));
               }}
+              variant="contained"
             >
               -
             </Button>
-            <TextField
-              variant="filled"
-              sx={textFieldStyles}
+            <InputBase
+              variant="standard"
+              sx={{
+                width: "24px",
+                px: "1px",
+                "& .MuiInputBase-input": { textAlign: "center" },
+              }}
               value={findQuantity(e._id)}
-            ></TextField>
+            ></InputBase>
             <Button
               onClick={() => {
                 dispatch(changedQuantity({ product: e, num: 1 }));
               }}
+              variant="contained"
             >
               +
             </Button>
@@ -74,34 +86,27 @@ const ProductList = () => {
 
   return (
     <>
-      <IconButton
-        onClick={() => {
-          dispatch(setProductWindow(false));
-        }}
-      >
-        <ArrowBackOutlinedIcon />
-      </IconButton>
-      <Typography variant="h2">Product List</Typography>
-      <IconButton
-        onClick={() => {
-          navigator.clipboard.writeText(productWindow);
-        }}
-      >
-        <ContentCopyOutlinedIcon />
-      </IconButton>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <IconButton
+          onClick={() => {
+            dispatch(setProductWindow(false));
+          }}
+        >
+          <ArrowBackOutlinedIcon />
+        </IconButton>
+        <Typography variant="h3">Product List</Typography>
+        <IconButton
+          onClick={() => {
+            navigator.clipboard.writeText(productWindow);
+          }}
+        >
+          <ContentCopyOutlinedIcon />
+        </IconButton>
+      </Box>
       <List>{basketList(product)}</List>
+      <Typography sx={{ fontSize: 20 }}>Total: {totalPrice()}€</Typography>
     </>
   );
 };
 
 export default ProductList;
-
-const textFieldStyles = {
-  width: "40px",
-  height: "30px",
-  value: "1",
-  "& .MuiFilledInput-input": {
-    padding: "8px",
-  },
-  color: "primary",
-};

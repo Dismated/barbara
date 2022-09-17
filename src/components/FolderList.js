@@ -18,6 +18,8 @@ import {
   Typography,
   InputBase,
   IconButton,
+  Box,
+  Badge,
 } from "@mui/material";
 
 const FolderList = () => {
@@ -41,7 +43,13 @@ const FolderList = () => {
     <PopupState variant="popover" popupId="demo-popup-popover">
       {(popupState) => (
         <>
-          <Button {...bindTrigger(popupState)}>{openButtonText}</Button>
+          <Button
+            {...bindTrigger(popupState)}
+            variant="contained"
+            sx={{ width: "45%" }}
+          >
+            {openButtonText}
+          </Button>
           <Popover
             {...bindPopover(popupState)}
             anchorOrigin={{
@@ -52,10 +60,12 @@ const FolderList = () => {
               vertical: "bottom",
               horizontal: "center",
             }}
+            sx={{ borderWidth: "10px" }}
           >
             <InputBase
               placeholder={placeholder}
               onChange={onChange}
+              sx={{ pl: "8px" }}
             ></InputBase>
             <Button onClick={onClick}>{submitButtonText}</Button>
           </Popover>
@@ -67,11 +77,24 @@ const FolderList = () => {
   const constructFolders = (folders) =>
     folders?.map((e) => (
       <div key={e._id}>
-        <ListItem>
-          <div onClick={() => dispatch(setProductWindow(e._id))}>
-            <FolderOutlinedIcon />
-            <Typography>{e.name}</Typography>
-          </div>
+        <ListItem
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box
+            onClick={() => dispatch(setProductWindow(e._id))}
+            sx={{
+              display: "flex",
+              "&:hover": { cursor: "pointer" },
+            }}
+          >
+            <Badge badgeContent={e.products.length} color="primary">
+              <FolderOutlinedIcon />
+            </Badge>
+            <Typography sx={{ pl: "16px" }}>{e.name}</Typography>
+          </Box>
           <IconButton
             onClick={() => {
               navigator.clipboard.writeText(e._id);
@@ -86,26 +109,36 @@ const FolderList = () => {
 
   return (
     <>
-      <Typography variant="h2">Folder List</Typography>
+      <Typography variant="h3" sx={{ textAlign: "center" }}>
+        Folder List
+      </Typography>
       <List>{constructFolders(folder)}</List>
-      {renderPopover(
-        (event) => setFolderName(event.target.value),
-        "List Name",
-        "Create List",
-        "Create",
-        () => dispatch(createFolder(folderName))
-      )}
-      {renderPopover(
-        (event) => {
-          setFolderCode(event.target.value);
-        },
-        "Enter Code",
-        "Join List",
-        "Join",
-        () => {
-          dispatch(importFolder({ _id: folderCode }));
-        }
-      )}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          py: "8px",
+        }}
+      >
+        {renderPopover(
+          (event) => setFolderName(event.target.value),
+          "List Name",
+          "Create List",
+          "Create",
+          () => dispatch(createFolder(folderName))
+        )}
+        {renderPopover(
+          (event) => {
+            setFolderCode(event.target.value);
+          },
+          "Enter Code",
+          "Join List",
+          "Join",
+          () => {
+            dispatch(importFolder({ _id: folderCode }));
+          }
+        )}
+      </Box>
     </>
   );
 };

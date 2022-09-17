@@ -4,9 +4,10 @@ import folderService from "../services/folders";
 
 const changeProduct = (product) => {
   const updatedNumber = product.product.quantity + product.num;
+  const notNegativeNumber = updatedNumber < 0 ? 0 : updatedNumber;
   const changedProduct = {
     ...product.product,
-    quantity: updatedNumber,
+    quantity: notNegativeNumber,
   };
   return changedProduct;
 };
@@ -22,7 +23,6 @@ const productSlice = createSlice({
       state.push(action.payload);
     },
     updateProduct(state, action) {
-      console.log(action.payload);
       return state.map((e) =>
         e._id === action.payload._id ? action.payload : e
       );
