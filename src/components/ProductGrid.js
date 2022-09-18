@@ -23,7 +23,7 @@ const ProductGrid = () => {
 
   const productGenerator = (products) =>
     products?.map((e) => (
-      <Grid item xs={3} key={e.id}>
+      <Grid item xs={6} sm={4} md={3} key={e.id}>
         <Card
           sx={{
             height: "300px",

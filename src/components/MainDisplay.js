@@ -16,17 +16,17 @@ const MainDisplay = () => {
   });
   return (
     <Grid container style={{ marginTop: "64px" }} columnSpacing={4}>
-      <Grid container item xs={8} spacing={3}>
+      <Grid container item xs={12} md={8} spacing={2}>
         {error && <Typography>Something went wrong</Typography>}
         {isLoading ? (
-          <Grid xs item>
+          <Grid item>
             <LinearProgress color="primary" />
           </Grid>
         ) : (
           <ProductGrid />
         )}
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={0} md={4} sx={{ display: { xs: "none", md: "block" } }}>
         <UserWindow />
       </Grid>
     </Grid>

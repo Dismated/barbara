@@ -94,7 +94,9 @@ const ProductList = () => {
         >
           <ArrowBackOutlinedIcon />
         </IconButton>
-        <Typography variant="h3">Product List</Typography>
+        <Typography variant="h3" sx={{ pt: 1 }}>
+          Product List
+        </Typography>
         <IconButton
           onClick={() => {
             navigator.clipboard.writeText(productWindow);
@@ -104,7 +106,9 @@ const ProductList = () => {
         </IconButton>
       </Box>
       <List>{basketList(product)}</List>
-      <Typography sx={{ fontSize: 20 }}>Total: {totalPrice()}€</Typography>
+      <Typography sx={{ fontSize: 20, pl: 1, pb: 1 }}>
+        Total: {totalPrice()}€
+      </Typography>
     </>
   );
 };

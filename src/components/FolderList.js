@@ -60,7 +60,6 @@ const FolderList = () => {
               vertical: "bottom",
               horizontal: "center",
             }}
-            sx={{ borderWidth: "10px" }}
           >
             <InputBase
               placeholder={placeholder}
@@ -109,7 +108,7 @@ const FolderList = () => {
 
   return (
     <>
-      <Typography variant="h3" sx={{ textAlign: "center" }}>
+      <Typography variant="h3" sx={{ textAlign: "center", pt: 1 }}>
         Folder List
       </Typography>
       <List>{constructFolders(folder)}</List>

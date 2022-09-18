@@ -45,9 +45,19 @@ const DropdownBox = ({ loading }) => {
     ));
 
   return (
-    <List sx={{ background: "white", padding: 0 }}>
+    <List sx={listStyles}>
       {loading ? <LinearProgress color="primary" /> : productList()}
     </List>
   );
 };
 export default DropdownBox;
+
+const listStyles = {
+  background: "white",
+  p: 0,
+  width: { xs: "100vw", md: "100%" },
+  left: { xs: "50%", md: 0 },
+  right: { xs: "50%", md: 0 },
+  marginLeft: { xs: "-50vw", md: 0 },
+  marginRight: { xs: "-50vw", md: 0 },
+};

@@ -4,6 +4,7 @@ import {
   IconButton,
   InputBase,
   Typography,
+  Box,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
@@ -22,16 +23,14 @@ const Search = styled("form")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  width: "800px",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "93%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    width: "100%",
+  [theme.breakpoints.up("xs")]: {
+    width: "200px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "320px",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "700px",
   },
 }));
 
@@ -53,14 +52,7 @@ const SearchBox = () => {
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
-      <div
-        style={{
-          position: "absolute",
-          top: 12,
-          left: "50%",
-          transform: "translate(-50%, 0)",
-        }}
-      >
+      <Box sx={boxStyles}>
         <Search
           onSubmit={(event) => {
             event.preventDefault();
@@ -71,20 +63,35 @@ const SearchBox = () => {
             );
           }}
         >
-          <StyledInputBase
+          <InputBase
             placeholder="Search…"
             onClick={() => setOpen(true)}
             onChange={(event) => dispatch(setPrompt(event.target.value))}
             autoFocus={true}
-          ></StyledInputBase>
+            sx={inputBaseStyles}
+          ></InputBase>
           <IconButton type="submit" sx={{ color: "inherit" }}>
             <SearchIcon />
           </IconButton>
         </Search>
         {error && <Typography>Something went wrong</Typography>}
         {open && <DropdownBox loading={isLoading} />}
-      </div>
+      </Box>
     </ClickAwayListener>
   );
 };
 export default SearchBox;
+
+const inputBaseStyles = {
+  color: "inherit",
+  width: ["80%", "86%", "93%"],
+  "& .MuiInputBase-input": {
+    pl: 2,
+  },
+};
+const boxStyles = {
+  position: "absolute",
+  top: [10, 12],
+  left: "50%",
+  transform: "translate(-50%, 0)",
+};
