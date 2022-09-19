@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const urlSlice = createSlice({
   name: "urls",
-  initialState:
-    "https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=52&query=€",
+  initialState: `${process.env.REACT_APP_PRODUCTS_52_API_URL}a`,
   reducers: {
     setUrl(state, action) {
       return action.payload;

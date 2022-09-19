@@ -1,4 +1,4 @@
-const folderUrl = "http://localhost:3001/api/folders";
+const folderUrl = "api/folders";
 
 const getAll = async () => {
   const response = await fetch(folderUrl);

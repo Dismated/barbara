@@ -14,7 +14,7 @@ import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { setUrl } from "../reducers/urlReducer";
 import { setSuggestion } from "../reducers/suggestionReducer";
-import useDebounce from "../hooks/useDebounce";
+import debounce from "../hooks/debounce";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -39,28 +39,27 @@ const SearchBox = () => {
 
   const prompt = useSelector((state) => state.prompt);
   const dispatch = useDispatch();
-  const debouncedSearchTerm = useDebounce(prompt, 500);
+  const url = `${process.env.REACT_APP_PRODUCTS_7_API_URL}${prompt}`;
 
-  const url = debouncedSearchTerm
-    ? `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=7&query=${debouncedSearchTerm}`
-    : null;
   const { data, isLoading, error } = useFetch(url);
 
   useEffect(() => {
     dispatch(setSuggestion(data));
-  });
+  }, [dispatch, data]);
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    dispatch(setUrl(`${process.env.REACT_APP_PRODUCTS_52_API_URL}${prompt}`));
+  };
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <Box sx={boxStyles}>
         <Search
           onSubmit={(event) => {
-            event.preventDefault();
-            dispatch(
-              setUrl(
-                `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=52&query=${prompt}`
-              )
-            );
+            debounce(() => {
+              handleSearch(event);
+            }, 1000);
           }}
         >
           <InputBase

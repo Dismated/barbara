@@ -9,7 +9,6 @@ import { setMainProduct } from "../reducers/mainProductReducer";
 const MainDisplay = () => {
   const dispatch = useDispatch();
   const url = useSelector((state) => state.url);
-
   const { data, isLoading, error } = useFetch(url);
   useEffect(() => {
     dispatch(setMainProduct(data));
