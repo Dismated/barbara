@@ -45,7 +45,7 @@ npm run dev
 #### Usage
 
 Product lists are stored in folders. You can either create a new folder:
-![How to create list](https://github.com/Dismated/barbara/blob/assets/howToCreateList.png)
+![How to create list](https://github.com/Dismated/barbara/assets/howToCreateList.png)
 Or ask someone for a code to join theirs:
 ![How to copy folder code](https://github.com/Dismated/barbara/blob/assets/howToCopyFolderCode.png)
 Paste the code here:
