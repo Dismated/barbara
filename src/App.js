@@ -1,6 +1,6 @@
+import { Container, CssBaseline } from "@mui/material";
 import Heading from "./components/Heading";
 import MainDisplay from "./components/MainDisplay";
-import { CssBaseline, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import lightTheme from "./themes/lightTheme";
 

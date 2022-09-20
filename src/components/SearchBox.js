@@ -1,20 +1,20 @@
-import DropdownBox from "./DropdownBox";
 import {
+  Box,
   ClickAwayListener,
   IconButton,
   InputBase,
   Typography,
-  Box,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import { setPrompt } from "../reducers/promptReducer";
+import { alpha, styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
-import useFetch from "../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { setUrl } from "../reducers/urlReducer";
-import { setSuggestion } from "../reducers/suggestionReducer";
-import debounce from "../hooks/debounce";
+import DropdownBox from "./DropdownBox";
+import SearchIcon from "@mui/icons-material/Search";
+import { setPrompt } from "reducers/promptReducer";
+import { setSuggestion } from "reducers/suggestionReducer";
+import { setUrl } from "reducers/urlReducer";
+import useDebounce from "hooks/useDebounce";
+import useFetch from "hooks/useFetch";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -39,7 +39,9 @@ const SearchBox = () => {
 
   const prompt = useSelector((state) => state.prompt);
   const dispatch = useDispatch();
-  const url = `${process.env.REACT_APP_PRODUCTS_7_API_URL}${prompt}`;
+  const debouncedSearchTerm = useDebounce(prompt, 500);
+
+  const url = `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=7&query=${debouncedSearchTerm}`;
 
   const { data, isLoading, error } = useFetch(url);
 

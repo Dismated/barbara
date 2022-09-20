@@ -1,20 +1,38 @@
-import productReducer from "./productReducer";
 import deepFreeze from "deep-freeze";
+import productReducer from "./productReducer";
 
 describe("productReducer", () => {
-  const baseState = [
-    { title: "lol", image: "lol", quantity: 1, price: "lol", id: 2 },
-    { title: "lol", image: "lol", quantity: 1, price: "lol", id: 1 },
-  ];
-  test("returns new state with action products/createProduct", () => {
+  test("returns new state with action products/setProduct", () => {
     const state = [];
     const action = {
-      type: "products/createProduct",
+      type: "products/setProduct",
       payload: {
-        title: "lol",
-        image: "lol",
-        quantity: 1,
-        price: "lol",
+        products: {
+          title: "Ekologiški bananai (fasuoti), 1 kg",
+          image:
+            "https://cdn.barbora.lt/products/06c3253b-953c-435a-b1b8-df4a1069bec1_s…",
+          price: 1.79,
+          quantity: 1,
+        },
+      },
+    };
+
+    deepFreeze(state);
+    const newState = productReducer(state, action);
+
+    expect(newState).toEqual(action.payload.products);
+  });
+
+  test("returns new state with action notes/appendProduct", () => {
+    const state = [];
+    const action = {
+      type: "products/appendProduct",
+      payload: {
+        title: "Ekologiški bananai (fasuoti), 1 kg",
+        image:
+          "https://cdn.barbora.lt/products/06c3253b-953c-435a-b1b8-df4a1069bec1_s…",
+        price: 1.79,
+        quantity: 0,
       },
     };
 
@@ -22,75 +40,49 @@ describe("productReducer", () => {
     const newState = productReducer(state, action);
 
     expect(newState).toHaveLength(1);
-    expect(newState.map((e) => e.content)).toContainEqual(action.payload);
-  });
-
-  test("substracts 1 from initial number", () => {
-    const action = { type: "products/decrement", payload: { id: 2, num: -1 } };
-
-    deepFreeze(baseState);
-    const newState = productReducer(baseState, action);
-
-    expect(newState).toHaveLength(2);
-    expect(newState).toContainEqual(baseState[1]);
-    expect(newState).toContainEqual({
-      title: "lol",
-      image: "lol",
+    expect(newState[0]).toEqual({
+      title: "Ekologiški bananai (fasuoti), 1 kg",
+      image:
+        "https://cdn.barbora.lt/products/06c3253b-953c-435a-b1b8-df4a1069bec1_s…",
+      price: 1.79,
       quantity: 0,
-      price: "lol",
-      id: 2,
     });
   });
 
-  test("adds 1 to initial number", () => {
-    const action = { type: "products/increment", payload: { id: 2, num: 1 } };
-
-    deepFreeze(baseState);
-    const newState = productReducer(baseState, action);
-
-    expect(newState).toHaveLength(2);
-    expect(newState).toContainEqual(baseState[1]);
-    expect(newState).toContainEqual({
-      title: "lol",
-      image: "lol",
-      quantity: 2,
-      price: "lol",
-      id: 2,
-    });
-  });
-
-  test("changes the number to defined value", () => {
-    const action = { type: "products/custom", payload: { id: 2, num: 4 } };
-
-    deepFreeze(baseState);
-    const newState = productReducer(baseState, action);
-
-    expect(newState).toHaveLength(2);
-    expect(newState).toContainEqual(baseState[1]);
-    expect(newState).toContainEqual({
-      title: "lol",
-      image: "lol",
-      quantity: 4,
-      price: "lol",
-      id: 2,
-    });
-  });
-
-  test("return new state with action products/setProduct", () => {
-    const state = [];
+  test("return new state with action products/updateProduct", () => {
+    const state = [
+      {
+        _id: "632462caf1611011f0331b01",
+        title: "Ekologiški bananai (fasuoti), 1 kg",
+        image:
+          "https://cdn.barbora.lt/products/06c3253b-953c-435a-b1b8-df4a1069bec1_s…",
+        price: 1.79,
+        quantity: 3,
+      },
+      {
+        _id: "6326410a1837b671118c904b",
+        title: "Avižų gėrimas ALPRO, 3,5 % rieb., 1 l",
+        image:
+          "https://cdn.barbora.lt/products/a9bdb73f-285b-4a24-bf1f-deec2f7a9306_s…",
+        price: 2.39,
+        quantity: 2,
+      },
+    ];
     const action = {
-      type: "products/setProduct",
+      type: "products/updateProduct",
       payload: {
-        title: "lol",
-        image: "lol",
+        _id: "632462caf1611011f0331b01",
+        title: "Ekologiški bananai (fasuoti), 1 kg",
+        image:
+          "https://cdn.barbora.lt/products/06c3253b-953c-435a-b1b8-df4a1069bec1_s…",
+        price: 1.79,
         quantity: 1,
-        price: "lol",
       },
     };
 
     deepFreeze(state);
     const newState = productReducer(state, action);
 
-    expect(newState).toEqual(action.payload);
+    expect(newState[0]).toEqual(action.payload);
   });
 });

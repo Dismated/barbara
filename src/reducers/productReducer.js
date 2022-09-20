@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import noteService from "../services/notes";
-import folderService from "../services/folders";
+import folderService from "services/folders";
+import noteService from "services/notes";
 
 const changeProduct = (product) => {
   const updatedNumber = product.product.quantity + product.num;

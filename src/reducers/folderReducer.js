@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import folderService from "../services/folders";
+import folderService from "services/folders";
 
 const updateLocalStorage = (newFolder) => {
   const folderIds = JSON.parse(window.localStorage.getItem("folderIds"));

@@ -1,23 +1,23 @@
-import { useSelector, useDispatch } from "react-redux";
-import { changedQuantity, removeProduct } from "../reducers/productReducer";
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { initializeProduct } from "../reducers/productReducer";
-import { useEffect } from "react";
 import {
+  Box,
+  Button,
+  ButtonGroup,
+  Divider,
+  IconButton,
+  InputBase,
   List,
   ListItem,
   ListItemText,
-  Button,
-  InputBase,
-  Divider,
-  IconButton,
   Typography,
-  Box,
-  ButtonGroup,
 } from "@mui/material";
-import { setProductWindow } from "../reducers/productWindowReducer";
+import { changedQuantity, removeProduct } from "reducers/productReducer";
+import { useDispatch, useSelector } from "react-redux";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { initializeProduct } from "reducers/productReducer";
+import { setProductWindow } from "reducers/productWindowReducer";
+import { useEffect } from "react";
 
 const ProductList = () => {
   const dispatch = useDispatch();

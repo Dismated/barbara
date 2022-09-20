@@ -1,10 +1,10 @@
+import { Grid, LinearProgress, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "./ProductGrid";
 import UserWindow from "./UserWindow";
-import { Grid, Typography, LinearProgress } from "@mui/material";
-import useFetch from "../hooks/useFetch";
-import { useDispatch, useSelector } from "react-redux";
+import { setMainProduct } from "reducers/mainProductReducer";
 import { useEffect } from "react";
-import { setMainProduct } from "../reducers/mainProductReducer";
+import useFetch from "hooks/useFetch";
 
 const MainDisplay = () => {
   const dispatch = useDispatch();

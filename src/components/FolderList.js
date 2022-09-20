@@ -1,26 +1,26 @@
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import {
-  initializeFolder,
-  createFolder,
-  importFolder,
-} from "../reducers/folderReducer";
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { setProductWindow } from "../reducers/productWindowReducer.js";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
-import {
-  Popover,
+  Badge,
+  Box,
   Button,
   Divider,
+  IconButton,
+  InputBase,
   List,
   ListItem,
+  Popover,
   Typography,
-  InputBase,
-  IconButton,
-  Box,
-  Badge,
 } from "@mui/material";
+import PopupState, { bindPopover, bindTrigger } from "material-ui-popup-state";
+import {
+  createFolder,
+  importFolder,
+  initializeFolder,
+} from "../reducers/folderReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
+import { setProductWindow } from "reducers/productWindowReducer.js";
 
 const FolderList = () => {
   const [folderName, setFolderName] = useState("");
@@ -124,7 +124,10 @@ const FolderList = () => {
           "List Name",
           "Create List",
           "Create",
-          () => dispatch(createFolder(folderName))
+          () => {
+            setAnchorEl(null);
+            dispatch(createFolder(folderName));
+          }
         )}
         {renderPopover(
           (event) => {

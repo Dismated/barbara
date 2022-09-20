@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import urlReducer from "./reducers/urlReducer";
+import folderReducer from "./reducers/folderReducer";
 import mainProductReducer from "./reducers/mainProductReducer";
 import productReducer from "./reducers/productReducer";
+import productWindowReducer from "./reducers/productWindowReducer";
 import promptReducer from "./reducers/promptReducer";
 import suggestionReducer from "./reducers/suggestionReducer";
-import folderReducer from "./reducers/folderReducer";
-import productWindowReducer from "./reducers/productWindowReducer";
+import urlReducer from "./reducers/urlReducer";
 
 const store = configureStore({
   reducer: {

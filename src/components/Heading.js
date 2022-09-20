@@ -1,17 +1,17 @@
-import SearchBox from "./SearchBox";
 import {
   AppBar,
-  useScrollTrigger,
-  Slide,
-  IconButton,
   Box,
+  IconButton,
   Popover,
+  Slide,
+  useScrollTrigger,
 } from "@mui/material";
-import { ReactComponent as Logo } from "../assets/barbara.svg";
+import PopupState, { bindPopover, bindTrigger } from "material-ui-popup-state";
+import { ReactComponent as Logo } from "assets/barbara.svg";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import { styled } from "@mui/material/styles";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
+import SearchBox from "./SearchBox";
 import UserWindow from "./UserWindow";
+import { styled } from "@mui/material/styles";
 
 const HideOnScroll = (props) => {
   const { children, window } = props;
