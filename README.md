@@ -45,14 +45,23 @@ npm run dev
 #### Usage
 
 Product lists are stored in folders. You can either create a new folder:
+
 ![How to create list](src/assets/howToCreateList.png)
+
 Or ask someone for a code to join theirs:
+
 ![How to copy folder code](src/assets/howToCopyFolderCode.png)
+
 Paste the code here:
+
 ![How to paste the folder code](src/assets/howToJoinList.png)
+
 You can only add products to your list once you are in the folder:
+
 ![How to add products](src/assets/howToAddProducts.png)
+
 The webpage is responsive and can be used at any size (the lists are located at the top right corner):
+
 ![Responsive design](src/assets/responsiveDesign.png)
 
 ##### Languages and Tools:
