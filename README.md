@@ -45,15 +45,15 @@ npm run dev
 #### Usage
 
 Product lists are stored in folders. You can either create a new folder:
-![How to create list](./assets/howToCreateList.png)
+![How to create list](https://github.com/Dismated/barbara/blob/assets/howToCreateList.png)
 Or ask someone for a code to join theirs:
-![How to copy folder code](./assets/howToCopyFolderCode.png)
+![How to copy folder code](https://github.com/Dismated/barbara/blob/assets/howToCopyFolderCode.png)
 Paste the code here:
-![How to paste the folder code](./assets/howToJoinList.png)
+![How to paste the folder code](https://github.com/Dismated/barbara/blob/assets/howToJoinList.png)
 You can only add products to your list once you are in the folder:
-![How to add products](./assets/howToAddProducts.png)
+![How to add products](https://github.com/Dismated/barbara/blob/assets/howToAddProducts.png)
 The webpage is responsive and can be used at any size (the lists are located at the top right corner):
-![Responsive design](/assets/responsiveDesign.png)
+![Responsive design](https://github.com/Dismated/barbara/blob/assets/responsiveDesign.png)
 
 ##### Languages and Tools:
 
