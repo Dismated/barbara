@@ -20,29 +20,31 @@ const DropdownBox = ({ loading }) => {
     dispatch(createProduct(product, productWindow));
   };
 
-  const productList = () =>
-    suggestion?.map((e) => (
-      <div key={e.id}>
-        <ListItem>
-          <img src={e.image} alt={e.title} style={{ height: "50px" }}></img>
-          <ListItemText
-            primary={e.title}
-            secondary={`${e.price}€`}
-            sx={{ position: "relative", color: "text.primary" }}
-          />
-          <Button
-            onClick={(event) => {
-              addToBasket(event, e);
-            }}
-            color="primary"
-            variant="contained"
-          >
-            <AddShoppingCartIcon />
-          </Button>
-        </ListItem>
-        <Divider />
-      </div>
-    ));
+  const productList = () => {
+    if (suggestion)
+      return suggestion.map((e) => (
+        <div key={e.id}>
+          <ListItem>
+            <img src={e.image} alt={e.title} style={{ height: "50px" }}></img>
+            <ListItemText
+              primary={e.title}
+              secondary={`${e.price}€`}
+              sx={{ position: "relative", color: "text.primary" }}
+            />
+            <Button
+              onClick={(event) => {
+                addToBasket(event, e);
+              }}
+              color="primary"
+              variant="contained"
+            >
+              <AddShoppingCartIcon />
+            </Button>
+          </ListItem>
+          <Divider />
+        </div>
+      ));
+  };
 
   return (
     <List sx={listStyles}>

@@ -10,9 +10,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "reducers/productReducer";
 
-const ProductGrid = () => {
+const ProductGrid = ({ data }) => {
   const dispatch = useDispatch();
-  const mainProduct = useSelector((state) => state.mainProduct);
   const productWindow = useSelector((state) => state.productWindow);
 
   const addToBasket = async (event, product) => {
@@ -75,7 +74,7 @@ const ProductGrid = () => {
       ));
   };
 
-  return <>{productGenerator(mainProduct)}</>;
+  return <>{productGenerator(data)}</>;
 };
 
 export default ProductGrid;

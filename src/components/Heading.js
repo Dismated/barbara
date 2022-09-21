@@ -43,21 +43,17 @@ const Heading = (props) => {
   return (
     <HideOnScroll {...props}>
       <AppBar sx={appBarStyles}>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={containerStyles}>
           <LogoStyled />
           <SearchBox />
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
               <>
-                <IconButton
-                  sx={{ color: "inherit" }}
-                  {...bindTrigger(popupState)}
-                >
+                <IconButton sx={iconButtonStyles} {...bindTrigger(popupState)}>
                   <MoreVertOutlinedIcon
                     sx={{
                       fontSize: "28px",
                       mt: "2px",
-                      display: { xs: "inline-flex", md: "none" },
                     }}
                   />
                 </IconButton>
@@ -93,4 +89,13 @@ const appBarStyles = {
   top: 0,
   color: "primary",
   height: ["56px", "64px"],
+};
+
+const containerStyles = {
+  display: "flex",
+  justifyContent: "space-between",
+};
+const iconButtonStyles = {
+  color: "inherit",
+  display: { xs: "inline-flex", md: "none" },
 };

@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import DropdownBox from "./DropdownBox";
 import SearchIcon from "@mui/icons-material/Search";
+import debounce from "utils/debounce";
+import endpoints from "utils/endpoints";
 import { setPrompt } from "reducers/promptReducer";
 import { setSuggestion } from "reducers/suggestionReducer";
 import { setUrl } from "reducers/urlReducer";
-import useDebounce from "hooks/useDebounce";
 import useFetch from "hooks/useFetch";
 
 const Search = styled("form")(({ theme }) => ({
@@ -39,11 +40,13 @@ const SearchBox = () => {
 
   const prompt = useSelector((state) => state.prompt);
   const dispatch = useDispatch();
-  const debouncedSearchTerm = useDebounce(prompt, 500);
 
-  const url = `https://serene-eyrie-74646.herokuapp.com/https://barbora.lt/api/eshop/v1/search?&limit=7&query=${debouncedSearchTerm}`;
+  const url = `${process.env.REACT_APP_BASE_BARBORA_API_URL}${endpoints(
+    "7",
+    prompt
+  )}`;
 
-  const { data, isLoading, error } = useFetch(url);
+  const { data, isLoading, error, fetchData } = useFetch();
 
   useEffect(() => {
     dispatch(setSuggestion(data));
@@ -51,23 +54,33 @@ const SearchBox = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    dispatch(setUrl(`${process.env.REACT_APP_PRODUCTS_52_API_URL}${prompt}`));
+    dispatch(
+      setUrl(
+        `${process.env.REACT_APP_BASE_BARBORA_API_URL}${endpoints(
+          "52",
+          prompt
+        )}`
+      )
+    );
   };
+
+  const handleLiveSearch = debounce((event) => {
+    dispatch(setPrompt(event.target.value));
+    fetchData(url);
+  }, 350);
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <Box sx={boxStyles}>
         <Search
           onSubmit={(event) => {
-            debounce(() => {
-              handleSearch(event);
-            }, 1000);
+            handleSearch(event);
           }}
         >
           <InputBase
             placeholder="Search…"
             onClick={() => setOpen(true)}
-            onChange={(event) => dispatch(setPrompt(event.target.value))}
+            onChange={handleLiveSearch}
             autoFocus={true}
             sx={inputBaseStyles}
           ></InputBase>

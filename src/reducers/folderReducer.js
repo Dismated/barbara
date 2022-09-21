@@ -46,9 +46,11 @@ export const createFolder = (content) => {
 
 export const importFolder = (code) => {
   return async (dispatch) => {
-    updateLocalStorage(code);
-    const newFolder = await folderService.getById(code._id);
-    dispatch(appendFolder(newFolder));
+    if (code) {
+      updateLocalStorage(code);
+      const newFolder = await folderService.getById(code._id);
+      dispatch(appendFolder(newFolder));
+    }
   };
 };
 

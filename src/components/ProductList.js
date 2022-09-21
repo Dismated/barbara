@@ -94,7 +94,7 @@ const ProductList = () => {
         >
           <ArrowBackOutlinedIcon />
         </IconButton>
-        <Typography variant="h3" sx={{ pt: 1 }}>
+        <Typography variant="h4" sx={{ pt: 1 }}>
           Product List
         </Typography>
         <IconButton
