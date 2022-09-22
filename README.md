@@ -1,6 +1,6 @@
 # About Barbara
 
-The front end of Barbara - a shopping list sharing website. It could be used in a situation where one person shops for the group and the person is not sure what to buy. By sending the link to the website and code to the folder the group members can join the shopping list and add products of their choice.
+The frontend of Barbara - a shopping list sharing website. It could be used in a situation where one person shops for the whole group and that person is not sure what to buy. By sending the link to the website and the code to the folder the group members can join the shopping list and add products of their choice.
 
 ## Frontend Installation
 
